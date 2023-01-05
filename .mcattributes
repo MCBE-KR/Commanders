@@ -1,0 +1,9 @@
+diagnostic.disable.resourcepack.particle.missing=false
+diagnostic.disable.minecraft.objective.invalid=false
+diagnostic.disable.minecraft.objective.missing=false
+diagnostic.disable.minecraft.objective.missing=true
+diagnostic.disable.minecraft.objective.invalid=true
+diagnostic.disable.resourcepack.particle.missing=true
+diagnostic.disable.resourcepack.model.missing=true
+diagnostic.disable.resourcepack.anim_or_controller.missing=true
+diagnostic.disable.resourcepack.sound.missing=true

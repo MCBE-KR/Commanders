@@ -1,0 +1,15 @@
+{
+  "name": "maos",
+  "version": "1.0.0",
+  "description": "Made by Namsic",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "namsic",
+  "license": "ISC",
+  "dependencies": {
+    "@minecraft/server": "^1.1.0-beta.1.19.60-preview.24",
+    "@minecraft/server-ui": "^1.0.0-beta.1.19.60-preview.24"
+  }
+}
