@@ -76,3 +76,7 @@ export const hasTag = (entity: Entity, tag: string | string[]) => {
 export const getTag = (entity: Entity, prefix: string) => {
 	return entity.getTags().some(tag => tag.startsWith(prefix));
 };
+
+export const getGameId = (entity: Entity) => {
+	return getScore(entity, "gameId");
+};

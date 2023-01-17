@@ -1,0 +1,8 @@
+{
+	"ui_defs": [
+		"ui/hud_screen.json",
+		"ui/lkd_common.json",
+		"ui/select_job.json",
+		"ui/server_form.json"
+	]
+}

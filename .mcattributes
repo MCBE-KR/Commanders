@@ -7,3 +7,4 @@ diagnostic.disable.resourcepack.particle.missing=true
 diagnostic.disable.resourcepack.model.missing=true
 diagnostic.disable.resourcepack.anim_or_controller.missing=true
 diagnostic.disable.resourcepack.sound.missing=true
+diagnostic.disable.molang.query.unknown=true

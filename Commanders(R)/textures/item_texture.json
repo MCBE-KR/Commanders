@@ -1,5 +1,5 @@
 {
-	"resource_pack_name": "MAOS",
+	"resource_pack_name": "commanders",
 	"texture_name": "atlas.items",
 	"texture_data": {
 		"job1": { "textures": ["textures/items/job1"] }

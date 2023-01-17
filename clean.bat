@@ -1,4 +1,4 @@
 chcp 65001
 
-cd MAOS(B)/scripts
+cd Commanders(B)/scripts
 del /S /Q *.js

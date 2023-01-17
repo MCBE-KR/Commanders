@@ -7,12 +7,9 @@
             "is_summonable": false,
             "is_experimental": false
         },
-        "component_groups": {},
         "components": {
             "minecraft:type_family": {
-                "family": [
-                    "player"
-                ]
+                "family": ["player"]
             },
             "minecraft:is_hidden_when_invisible": {},
             "minecraft:loot": {
@@ -41,7 +38,7 @@
                 "total_supply": 15,
                 "suffocate_time": -1,
                 "inhale_time": 3.75,
-                "generates_bubbles": false
+                "generates_bubbles": true
             },
             "minecraft:nameable": {
                 "always_show": true,
@@ -53,13 +50,74 @@
                 "is_pushable_by_piston": true
             },
             "minecraft:conditional_bandwidth_optimization": {},
-            "minecraft:block_climber": {}
+            "minecraft:block_climber": {},
+            "minecraft:damage_sensor": {
+                "triggers": {
+                    "on_damage": {
+                        "filters": {
+                            "any_of": [
+                                {
+                                    "all_of" : [
+                                        {
+                                            "test": "has_tag",
+                                            "subject": "other",
+                                            "value": "team1"
+                                        },
+                                        {
+                                            "test": "has_tag",
+                                            "subject": "self",
+                                            "value": "team1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "all_of" : [
+                                        {
+                                            "test": "has_tag",
+                                            "subject": "other",
+                                            "value": "team2"
+                                        },
+                                        {
+                                            "test": "has_tag",
+                                            "subject": "self",
+                                            "value": "team2"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "deals_damage": false
+                }
+            }
+        },
+        "component_groups": {
+            "cmd:ice_magician1": {
+                "minecraft:spawn_entity": {
+                    "entities": [{
+                        "min_wait_time": 0,
+                        "max_wait_time": 0,
+                        "single_use": true,
+                        "num_to_spawn": 1,
+                        "spawn_entity": "cmd:proj_ice_magician1"
+                    }]
+                }
+            }
         },
         "events": {
             "namsic_keyboard:key0": {},
             "namsic_keyboard:key1": {},
             "namsic_keyboard:key2": {},
-            "namsic_keyboard:key3": {}
+            "namsic_keyboard:key3": {},
+
+            // IceMagician
+            "cmd:ice_magician1": {
+                "add": {
+                    "component_groups": [
+                        "cmd:ice_magician1"
+                    ]
+                }
+            }
         }
     }
 }

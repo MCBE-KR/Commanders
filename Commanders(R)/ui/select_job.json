@@ -1,0 +1,26 @@
+{
+	"namespace": "select_job",
+
+	"long_form_panel@lkd_common.long_form_panel": {
+		"$scrolling_content": "main_ui",
+		"size": [368, 192]
+	},
+	"long_form@lkd_common.long_form": {
+		"$child_control": "long_form_panel",
+		"size": [384, 240]
+	},
+
+	"main_ui@lkd_common.main_ui": {
+		"controls": [{
+
+		}]
+	},
+
+	"main_screen@lkd_common.main_screen": {
+		"controls": [{
+			"form@long_form": {}
+		}, {
+			"prevent_touch@lkd_common.prevent_touch": {}
+		}]
+	}
+}

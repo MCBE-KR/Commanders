@@ -1,0 +1,70 @@
+{
+	"format_version": "1.18.20",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "cmd:proj_ice_magician1",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"runtime_identifier": "minecraft:snowball"
+		},
+		"components": {
+			"minecraft:timer": {
+				"looping": false,
+				"randomInterval": false,
+				"time": 0.8,
+				"time_down_event": {
+					"event": "cmd:proj_timeout"
+				}
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 0.6
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": false
+			},
+			"minecraft:projectile": {
+				"anchor": 0,
+				"gravity": 0,
+				"hit_ground_sound": "",
+				"hit_sound": "",
+				"knockback": false,
+				"liquid_inertia": 0.99,
+				"multiple_targets": false,
+				"on_hit": {
+					"impact_damage": {
+						"damage": [1, 1]
+					}
+				},
+				"particle": "",
+				"power": 1.8,
+				"shoot_sound": "",
+				"uncertainty_base": 0
+			}
+		},
+		"component_groups": {
+			"cmd:despawn": {
+				"minecraft:instant_despawn": {}
+			}
+		},
+		"events": {
+			"cmd:despawn": {
+				"add": {
+					"component_groups": [
+						"cmd:despawn"
+					]
+				}
+			},
+			"cmd:proj_timeout": {
+				"add": {
+					"component_groups": [
+						"cmd:despawn"
+					]
+				}
+			}
+		}
+	}
+}

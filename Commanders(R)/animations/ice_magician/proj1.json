@@ -1,0 +1,18 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.proj_ice_magician1.normal": {
+			"loop": true,
+			"animation_length": 0.12,
+			"override_previous_animation": true,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.12": [90, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

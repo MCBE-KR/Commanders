@@ -1,0 +1,311 @@
+{
+	"namespace": "lkd_common",
+	"main_screen": {
+		"type": "panel",
+		"size": [0, 0],
+		"controls": [{
+			"total@long_form": {}
+		}, {
+			"prevent": {
+				"prevent_touch_input": true,
+				"type": "button",
+				"anchor_from": "bottom_middle",
+				"anchor_to": "bottom_middle",
+				"offset": [0, -55],
+				"layer": 23,
+				"size": [1000, 1000]
+			}
+		}]
+	},
+	"main_ui": {
+		"type": "panel",
+		"offset": [0, 0],
+		"layer": 1,
+		"anchor_from": "bottom_middle",
+		"anchor_to": "bottom_middle"
+	},
+	"prevent_touch":{
+		"prevent_touch_input": true,
+		"type": "button",
+		"anchor_from": "bottom_middle",
+		"anchor_to": "bottom_middle",
+		"offset": [0, -55],
+		"layer": 23,
+		"size": [1000, 1000]
+	},
+	"long_form_panel@common.scrolling_panel": {
+		"$show_background": false,
+		"clips_children": false,
+		"offset": [0, 0]
+	},
+	"long_form@main_panel_no_buttons": {
+		"$title_panel": "standard_title_label",
+		"$title_size": [ "100% - 14px", 10 ],
+		"$text_name": "#title_text",
+		"$title_text_binding_type": "none",
+		"layer": 2
+	},
+	"buttons_panel": {
+		"type": "stack_panel",
+		"size": "$size",
+		"$size|default": ["100% - 4px", "100%c"],
+		"offset": "$offset",
+		"clips_children": true,
+		"$offset|default": [0, 0],
+		"orientation": "vertical",
+		"anchor_from": "top_middle",
+		"anchor_to": "top_middle",
+		"factory": {
+			"name": "buttons",
+			"control_name": "dynamic_button"
+		},
+		"collection_name": "form_buttons",
+		"bindings": [{
+			"binding_name": "#form_button_length",
+			"binding_name_override": "#collection_length"
+		}]
+	},
+	"standard_title_label@common_dialogs.standard_title_label": {
+		"color": [1, 1, 1]
+	},
+	"title_label": {
+		"type": "panel",
+		"anchor_from": "top_middle",
+		"anchor_to": "top_middle",
+		"$title_size|default": ["100%c", 10],
+		"size": "$title_size",
+		"$title_offset|default": [0, 9],
+		"offset": "$title_offset",
+		"$use_custom_title_control|default": false,
+		"$custom_title_label|default": "common.empty_panel",
+		"$title_binding_condition|default": "none",
+		"$title_text_binding_type|default": "none",
+		"controls": [{
+			"common_dialogs_0@standard_title_label": {
+				"ignored": "$use_custom_title_control"
+			}
+		}, {
+			"common_dialogs_1@$custom_title_label": {
+				"ignored": "(not $use_custom_title_control)"
+			}
+		}]
+	},
+	"main_panel_no_buttons": {
+		"type": "panel",
+		"anchor_from": "center",
+		"anchor_to": "center",
+		"$text_name|default": "",
+		"$panel_indent_size|default": ["100% - 16px", "100% - 31px"],
+		"$custom_background|default": "dialog_background_hollow_3",
+		"controls": [{
+			"common_panel@common.common_panel": {
+				"$dialog_background": "$custom_background"
+			}
+		}, {
+			"title_label@title_label": {}
+		}, {
+			"panel_indent": {
+				"type": "panel",
+				"size": "$panel_indent_size",
+				"offset": [0, 23],
+				"anchor_from": "top_middle",
+				"anchor_to": "top_middle",
+				"controls": [{
+						"inside_header_panel@$child_control": {}
+				}]
+			}
+		}]
+	},
+	"dialog_background_hollow_3@common_dialogs.dialog_background_hollow_common": {
+		"texture": "textures/ui/lkd/box",
+		"controls": [{
+			"control": {
+				"type": "image",
+				"texture": "$dialog_background_texture",
+				"layer": 1,
+				"$common_background_size|default": ["100% - 16px", "100%c - 27px"],
+				"$close_button_offset|default": [6, -21],
+				"size": "$common_background_size",
+				"offset": [0, 7],
+				"alpha": "$fill_alpha",
+				"variables": [{
+					"requires": "($show_close_button and $use_compact_close_button)",
+					"$common_background_size": ["100% - 16px", "100%c - 19px"],
+					"$close_button_offset": [6, -13]
+				}, {
+					"requires": "(not $show_close_button)",
+					"$common_background_size": ["100% - 16px", "100%c - 6px"]
+				}],
+				"controls": [{
+					"inside_header_panel@$child_control": {}
+				}, {
+					"close_button_holder@common_close_button_holder": {
+						"layer": 21,
+						"offset": [6, -30]
+					}
+				}]
+			}
+		}]
+	},
+	"common_close_button_holder": {
+		"type": "stack_panel",
+		"visible": "$show_close_button",
+		"anchor_from": "top_right",
+		"anchor_to": "top_right",
+		"size": ["100%c", "100%c"],
+		"offset": "$close_button_offset",
+		"bindings": [{
+			"binding_name": "(not #is_using_gamepad)",
+			"binding_name_override": "#visible"
+		}],
+		"controls": [{
+			"close@close_button": {
+				"layer": 2,
+				"ignored": "$use_compact_close_button"
+			}
+		}, {
+			"compact_close@compact_close_button": {
+				"layer": 2,
+				"visible": "$use_compact_close_button"
+			}
+		}]
+	},
+	"close_button@common.close_button": {
+		"controls": [{
+			"default@common.close_button_panel": {
+				"$close_button_texture": "textures/ui/lkd/x",
+				"$button_alpha": "$default_button_alpha"
+			}
+		}, {
+			"hover@common.close_button_panel": {
+				"$close_button_texture": "textures/ui/lkd/x"
+			}
+		}, {
+			"pressed@common.close_button_panel": {
+				"$close_button_texture": "textures/ui/lkd/x"
+			}
+		}]
+	},
+	"compact_close_button@common.close_button": {
+		"size": [21, 13],
+		"$close_button_panel_size|default": [15, 7],
+		"controls": [{
+			"default@common.close_button_panel": {
+				"$close_button_texture": "textures/ui/lkd/x"
+			}
+		}, {
+			"hover@common.close_button_panel": {
+				"$close_button_texture": "textures/ui/lkd/x"
+			}
+		}, {
+			"pressed@common.close_button_panel": {
+				"$close_button_texture": "textures/ui/lkd/x"
+			}
+		}]
+	},
+	"dynamic_button@server_form.dynamic_button": {
+		"type": "stack_panel",
+		"size": ["100%", 32],
+		"orientation": "horizontal",
+		"controls": [{
+			"panel_name": {
+				"type": "panel",
+				"size": [34, "100%c"],
+				"bindings": [{
+					"binding_type": "view",
+					"source_control_name": "image",
+					"resolve_sibling_scope": true,
+					"source_property_name": "(not (#texture = ''))",
+					"target_property_name": "#visible"
+				}],
+				"controls": [{
+					"image": {
+						"type": "image",
+						"layer": 2,
+						"size": [32, 32],
+						"offset": [-2, 0],
+						"bindings": [{
+							"binding_name": "#form_button_texture",
+							"binding_name_override": "#texture",
+							"binding_type": "collection",
+							"binding_collection_name": "form_buttons"
+						}, {
+							"binding_name": "#form_button_texture_file_system",
+							"binding_name_override": "#texture_file_system",
+							"binding_type": "collection",
+							"binding_collection_name": "form_buttons"
+						}, {
+							"binding_type": "view",
+							"source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+							"target_property_name": "#visible"
+						}]
+					}
+				}, {
+					"progress@progress.progress_loading_bars": {
+						"size": [30, 4],
+						"offset": [-2, 16],
+						"bindings": [{
+							"binding_type": "view",
+							"source_control_name": "image",
+							"resolve_sibling_scope": true,
+							"source_property_name": "(#texture = 'loading')",
+							"target_property_name": "#visible"
+						}]
+					}
+				}]
+			}
+		}, {
+			"form_button@light_text_button": {
+				"$pressed_button_name": "button.form_button_click",
+				"anchor_from": "top_left",
+				"anchor_to": "top_left",
+				"size": ["fill", 32],
+				"$button_text": "#form_button_text",
+				"$button_text_binding_type": "collection",
+				"$button_text_grid_collection_name": "form_buttons",
+				"$button_text_max_size": ["100%", 20],
+				"bindings": [{
+					"binding_type": "collection_details",
+					"binding_collection_name": "form_buttons"
+				}],
+				"layer": 1,
+				"controls": [{
+					"default@$button_state_panel": {
+						"$new_ui_button_texture": "textures/ui/lkd/btn",
+						"$text_color|default": [1.0, 1.0, 1.0],
+						"$secondary_text_color": "$light_button_secondary_default_text_color",
+						"$content_alpha": "$default_content_alpha",
+						"$border_color": "$light_border_default_color",
+						"$border_layer": 2,
+						"$default_state": true,
+						"$button_alpha": "$default_button_alpha",
+						"layer": 1,
+						"variables": [{
+							"requires": "(#form_button_text = '???')",
+							"$text_color": [0.5, 0.5, 0.5]
+						}]
+					}
+				}, {
+					"hover@$button_state_panel": {
+						"$new_ui_button_texture": "textures/ui/lkd/box",
+						"$text_color|default": [1.0, 1.0, 1.0],
+						"$secondary_text_color": "$light_button_secondary_hover_text_color",
+						"$content_alpha": 1,
+						"$border_color": "$light_border_hover_color",
+						"$border_layer": 4,
+						"$hover_state": true,
+						"$button_alpha": "$default_hover_alpha",
+						"layer": 4,
+						"variables": [{
+							"requires": "(#form_button_text = '???')",
+							"$text_color": [0.5, 0.5, 0.5]
+						}]
+					}
+				}]
+			}
+		}]
+	},
+	"light_text_button@common_buttons.light_text_button": {
+		"$font_type": "smooth"
+	}
+}

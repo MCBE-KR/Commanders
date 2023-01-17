@@ -1,13 +1,18 @@
 import { Player } from "@minecraft/server";
-import { format } from "Commanders(B)/scripts/common/utils";
-import LANG from "Commanders(B)/scripts/translate";
 import { getScore, setScore } from "../../api/scoreboard";
+import { format } from "../../common/utils";
+import { LANG, Name } from "../../translate";
+
+type SkillNumber = 1 | 2 | 3 | 4;
 
 type Stat = {
-	cool1: number;
-	cool2: number;
-	cool3: number;
-	cool4: number;
+	cool: {
+		[skillNumber in SkillNumber]: number;
+	};
+
+	useMn: {
+		[skillNumber in SkillNumber]: number;
+	};
 
 	maxHp: number;
 	maxMn: number;
@@ -17,9 +22,11 @@ type Stat = {
 };
 
 export abstract class Job {
+	protected name: Name;
 	protected stat: Stat;
 
-	constructor(stat: Stat) {
+	constructor(name: Name, stat: Stat) {
+		this.name = name;
 		this.stat = stat;
 	}
 
@@ -28,43 +35,63 @@ export abstract class Job {
 	abstract checkSkill3(player: Player): string | null;
 	abstract checkSkill4(player: Player): string | null;
 
-	getCoolError(player: Player, skillNumber: number) {
-		return format(
-			LANG.kr.skill.fail.cool,
-			skillNumber,
-			this.getRemainCool1(player),
-			this.stat.cool1,
-		);
-	}
-
-	getMnError(player: Player, skillNumber: number) {
-		return format(
-			LANG.kr.skill.fail.mana,
-			skillNumber,
-			this.getMn(player),
-			this.stat.maxMn,
-		);
-	}
-
 	abstract skill1(player: Player): void;
 	abstract skill2(player: Player): void;
 	abstract skill3(player: Player): void;
 	abstract skill4(player: Player): void;
 
-	getRemainCool1(player: Player) {
-		return getScore(player, "cool1");
+	getCoolError(
+		player: Player,
+		skillNumber: SkillNumber,
+		remainCool: number = this.getRemainCool(player, skillNumber),
+	) {
+		return format(
+			LANG.kr.skill.fail.cool,
+			skillNumber,
+			remainCool,
+			this.stat.cool[skillNumber],
+		);
 	}
 
-	getRemainCool2(player: Player) {
-		return getScore(player, "cool2");
+	getMnError(player: Player, skillNumber: SkillNumber) {
+		return format(
+			LANG.kr.skill.fail.mana,
+			skillNumber,
+			this.getMn(player),
+			this.stat.useMn[skillNumber],
+		);
 	}
 
-	getRemainCool3(player: Player) {
-		return getScore(player, "cool3");
+	getDefaultError(player: Player, skillNumber: SkillNumber) {
+		const remainCool = this.getRemainCool(player, skillNumber);
+		if (remainCool > 0) {
+			return this.getCoolError(player, skillNumber, remainCool);
+		}
+
+		if (this.getMn(player) < this.stat.useMn[skillNumber]) {
+			return this.getMnError(player, skillNumber);
+		}
+
+		return null;
 	}
 
-	getRemainCool4(player: Player) {
-		return getScore(player, "cool4");
+	getRemainCool(player: Player, skillNumber: SkillNumber) {
+		switch (skillNumber) {
+			case 1:
+				return getScore(player, "cool1");
+
+			case 2:
+				return getScore(player, "cool2");
+
+			case 3:
+				return getScore(player, "cool3");
+
+			case 4:
+				return getScore(player, "cool4");
+
+			default:
+				throw new Error(`Invalid Argument ${skillNumber}`);
+		}
 	}
 
 	getHp(player: Player) {

@@ -1,5 +1,5 @@
 import { Entity, Player } from "@minecraft/server";
-import { addScore, getScore, setScore } from "../api/scoreboard";
+import { addScore, getGameId, getScore, setScore } from "../api/scoreboard";
 
 export const format = (str: string, ...args: any[]) => {
 	let i = 0;
@@ -25,8 +25,8 @@ export const damage = (
 	victim: Entity,
 	damager: Entity,
 	value: number,
-	victimId: number = getScore(victim, "gameId"),
-	damagerId: number = getScore(damager, "gameId"),
+	victimId: number = getGameId(victim),
+	damagerId: number = getGameId(damager),
 ) => {
 	victim.runCommandAsync("damage @s 1 none");
 

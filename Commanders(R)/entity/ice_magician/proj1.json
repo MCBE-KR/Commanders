@@ -1,0 +1,28 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "cmd:proj_ice_magician1",
+			"materials": {
+				"default": "arrow"
+			},
+			"textures": {
+				"default": "textures/entity/ice_magician/proj1"
+			},
+			"geometry": {
+				"default": "geometry.proj_ice_magician1"
+			},
+			"render_controllers": [
+				"controller.render.default"
+			],
+			"animations": {
+				"normal": "animation.proj_ice_magician1.normal"
+			},
+			"scripts": {
+				"animate": [
+					"normal"
+				]
+			}
+		}
+	}
+}
