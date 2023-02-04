@@ -1,5 +1,5 @@
 import { Player } from "@minecraft/server";
-import { getScore, setScore } from "../../api/scoreboard";
+import { getProperty, setProperty } from "../../api/property";
 import { format } from "../../common/utils";
 import { LANG, Name } from "../../translate";
 
@@ -78,16 +78,16 @@ export abstract class Job {
 	getRemainCool(player: Player, skillNumber: SkillNumber) {
 		switch (skillNumber) {
 			case 1:
-				return getScore(player, "cool1");
+				return getProperty(player, "cool1") as number;
 
 			case 2:
-				return getScore(player, "cool2");
+				return getProperty(player, "cool2") as number;
 
 			case 3:
-				return getScore(player, "cool3");
+				return getProperty(player, "cool3") as number;
 
 			case 4:
-				return getScore(player, "cool4");
+				return getProperty(player, "cool4") as number;
 
 			default:
 				throw new Error(`Invalid Argument ${skillNumber}`);
@@ -95,28 +95,28 @@ export abstract class Job {
 	}
 
 	getHp(player: Player) {
-		return getScore(player, "hp");
+		return getProperty(player, "hp") as number;
 	}
 
 	getMn(player: Player) {
-		return getScore(player, "mn");
+		return getProperty(player, "mn") as number;
 	}
 
-	async addHp(
+	addHp(
 		player: Player,
 		hp: number,
 		currentHp: number = this.getHp(player),
 	) {
 		const newHp = Math.max(Math.min(this.stat.maxHp, currentHp + hp), 0);
-		return setScore(player, "hp", newHp);
+		setProperty(player, "hp", newHp);
 	}
 
-	async addMn(
+	addMn(
 		player: Player,
 		mn: number,
 		currentMn: number = this.getMn(player),
 	) {
 		const newMn = Math.max(Math.min(this.stat.maxMn, currentMn + mn), 0);
-		return setScore(player, "mn", newMn);
+		setProperty(player, "mn", newMn);
 	}
 }

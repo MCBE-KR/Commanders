@@ -1,5 +1,5 @@
 import { Entity, Player } from "@minecraft/server";
-import { addScore, getGameId, getScore, setScore } from "../api/scoreboard";
+import { addProperty, getProperty, setProperty } from "../api/property";
 
 export const format = (str: string, ...args: any[]) => {
 	let i = 0;
@@ -21,18 +21,27 @@ export const isPlayer = (entity: Entity): entity is Player => {
 	return entity.typeId === "minecraft:player";
 };
 
-export const damage = (
+export const giveDamage = (
 	victim: Entity,
 	damager: Entity,
 	value: number,
-	victimId: number = getGameId(victim),
-	damagerId: number = getGameId(damager),
+	victimId: number | undefined = getProperty(victim, "gameId") as number,
+	damagerId: number | undefined = getProperty(damager, "gameId") as number,
 ) => {
-	victim.runCommandAsync("damage @s 1 none");
+	victim.runCommandAsync("damage @s 1 none")
+		.catch(e => console.error(e));
 
-	addScore(victim, "hp", -value);
-	addScore(victim, "takenDamage", value);
-	addScore(damager, "givenDamage", value);
-	setScore(victim, "recentHurt", damagerId);
-	setScore(damager, "recentAttacked", victimId);
+	if(value > 0) {
+		addProperty(victim, "hp", -value);
+		addProperty(victim, "takenDamage", value);
+		addProperty(damager, "givenDamage", value);
+	}
+
+	if(victimId) {
+		setProperty(damager, "recentAttacked", victimId);
+	}
+
+	if(damagerId) {
+		setProperty(victim, "recentHurt", damagerId);
+	}
 };

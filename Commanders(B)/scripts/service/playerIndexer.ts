@@ -1,18 +1,24 @@
 import { world } from "@minecraft/server";
-import { Score, setScore } from "../api/scoreboard";
-import { runAsyncUntil } from "../api/task";
+import { PropertyKey, setProperty } from "../api/property";
+import { runUntil } from "../api/task";
 import { OVERWORLD } from "../common/constants";
 
-let INDEX = 0;
+let index = 1;
 
 world.events.worldInitialize.subscribe(() => {
-	const gameId: Score = "gameId";
-	OVERWORLD.runCommandAsync(`scoreboard players reset * ${gameId}`);
+	const gameId: PropertyKey = "gameId";
+	const command = `scoreboard players reset * ${gameId}`;
+
+	OVERWORLD.runCommandAsync(command)
+		.catch(() => {
+			OVERWORLD.runCommandAsync(command)
+				.catch(e => console.error(e));
+		});
 });
 
 world.events.playerJoin.subscribe(event => {
 	const { player } = event;
-	const currentIndex = INDEX++;
+	const currentIndex = index++;
 	
-	runAsyncUntil(() => setScore(player, "gameId", currentIndex), 5);
+	runUntil(() => setProperty(player, "gameId", currentIndex), 5);
 });

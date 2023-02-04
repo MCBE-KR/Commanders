@@ -1,4 +1,5 @@
 import { Player } from "@minecraft/server";
+import { spawnProjectile } from "../../common/projectile";
 import { Job } from "./job";
 
 export class IceMagician extends Job {
@@ -42,13 +43,11 @@ export class IceMagician extends Job {
 	}
 
 	skill1(player: Player): void {
-		player.triggerEvent("cmd:ice_magician1");
+		spawnProjectile(player, "cmd:proj_ice_magician1");
 	}
 
 	skill2(player: Player): void {
-		player.tell({
-			rawtext: ["Skill2"],
-		});
+		spawnProjectile(player, "cmd:proj_ice_magician2");
 	}
 
 	skill3(player: Player): void {

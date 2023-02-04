@@ -1,19 +1,19 @@
 import { Entity } from "@minecraft/server";
 import { OVERWORLD } from "../common/constants";
-import { getScore } from "./scoreboard";
+import { getProperty } from "./property";
 
 export const exceptSpectator = (targets: Entity[]) => {
 	return targets.filter((target) => !target.hasTag("spectator"));
 };
 
 export const gatAllies = (player: Entity, targets: Entity[]) => {
-	const teamScore = getScore(player, "team");
-	return targets.filter((target) => getScore(target, "team") === teamScore);
+	const teamScore = getProperty(player, "team");
+	return targets.filter((target) => getProperty(target, "team") === teamScore);
 };
 
 export const getEnemies = (player: Entity, targets: Entity[]) => {
-	const teamScore = getScore(player, "team");
-	return targets.filter((target) => getScore(target, "team") !== teamScore);
+	const teamScore = getProperty(player, "team");
+	return targets.filter((target) => getProperty(target, "team") !== teamScore);
 };
 
 export const run = (func: any) => {

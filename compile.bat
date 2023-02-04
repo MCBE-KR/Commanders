@@ -1,6 +1,7 @@
 @echo off
 chcp 65001
 
+del /S /Q *.js
 cd Commanders(B)
 call tsc
 

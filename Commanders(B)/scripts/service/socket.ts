@@ -1,5 +1,5 @@
 import { world } from "@minecraft/server";
-import { getScore } from "../api/scoreboard";
+import { getProperty } from "../api/property";
 import { isPlayer } from "../common/utils";
 import { jobs } from "../domain/job/instance";
 
@@ -14,8 +14,8 @@ world.events.beforeDataDrivenEntityTriggerEvent.subscribe(event => {
 
 		const prefixLength = prefix.length;
 		const skillId = Number(id.substring(prefixLength, prefixLength + 1));
-		const jobScore = getScore(player, "job");
-		const jobInstance = jobs[jobScore];
+		const job = getProperty(player, "job") as number;
+		const jobInstance = jobs[job];
 
 		if(!jobInstance) {
 			player.tell({
